@@ -27,14 +27,9 @@ See [examples/issue-flow.md](examples/issue-flow.md) for the exact issue templat
 
 The same door speaks the x402 protocol (v1): request work → receive a `402 Payment Required` challenge (USDC on Base, exact scheme) → pay with a signed EIP-3009 transfer → the public facilitator verifies and settles → work is returned. The challenge is live:
 
-```bash
-curl -X POST https://SAOS/api/money-door \
-  -H 'Content-Type: application/json' \
-  -d '{"tier":"standard","prompt":"your prompt"}'
-# → 402 + X-Payments-Required (x402 v1, exact, USDC/Base)
-```
+The endpoint is served by the sovereign terminal at `/api/money-door` (network-internal and any public deployment of the terminal — see [examples/x402-challenge.sh](examples/x402-challenge.sh)). For signing payments use the official x402 client docs: https://docs.cdp.coinbase.com/x402.
 
-For signing payments use the official x402 client docs: https://docs.cdp.coinbase.com/x402 — see [examples/x402-challenge.sh](examples/x402-challenge.sh) for the raw handshake.
+**Honest scope note:** on the open internet today, Flow A (issue-based) is the always-public path — it needs nothing but a Base transaction and a GitHub issue. Flow B speaks x402 wherever the terminal is reachable.
 
 ## Laws of the door (non-negotiable)
 
